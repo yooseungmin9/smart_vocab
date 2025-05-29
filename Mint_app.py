@@ -23,7 +23,6 @@ st.write("대전광역시 5개 행정구별 실시간 교통량 시각화")
 
 with st.sidebar:
     st.header("🔧 설정")
-    api_key = st.text_input("API 키", value="6591754531", type="password")
     refresh_button = st.button("🔄 새로고침")
     
     st.subheader("📊 범례")
@@ -35,76 +34,84 @@ with st.sidebar:
     """)
 
 @st.cache_data(ttl=300)
-def fetch_data(key):
+def fetch_data():
     """API 데이터 가져오기"""
+    api_key = "6591754531"  # API 키 하드코딩
     try:
-        r = requests.get(
+        response = requests.get(
             "https://data.ex.co.kr/openapi/trafficapi/trafficAll",
-            params={'key': key, 'type': 'json', 'numOfRows': 100},
+            params={'key': api_key, 'type': 'json', 'numOfRows': 100},
             timeout=10
         )
-        return r.json() if r.status_code == 200 else None
-    except:
+        return response.json() if response.status_code == 200 else None
+    except Exception:
         return None
 
-def process_data(raw):
+def process_data(raw_data):
     """데이터 처리 및 행정구별 교통량 계산"""
-    if not raw:
+    if not raw_data:
         return pd.DataFrame()
     
     coords = get_coords()
     districts = list(coords.keys())
-    traffic = raw.get('trafficAll', [])
+    traffic_data = raw_data.get('trafficAll', [])
     
-    # 모든 행정구에 기본값 설정
-    district_traffic = {d: [1000] for d in districts}  # 기본값 추가
+    # 행정구별 교통량 초기화
+    district_traffic = {district: [1000] for district in districts}
     
-    for i, item in enumerate(traffic):
+    # 교통 데이터 분배
+    for idx, item in enumerate(traffic_data):
         if isinstance(item, dict):
-            district = districts[i % len(districts)]
-            amount = int(item.get('trafficAmout', 0))
-            if amount > 0:  # 유효한 데이터만 추가
-                district_traffic[district].append(amount)
+            district = districts[idx % len(districts)]
+            traffic_amount = int(item.get('trafficAmout', 0))
+            if traffic_amount > 0:
+                district_traffic[district].append(traffic_amount)
     
-    # 모든 행정구 데이터 생성 보장
-    processed = []
-    for d in districts:  # 순서 보장
-        t_list = district_traffic[d]
-        total = sum(t_list)
-        lat, lon = coords[d]
-        processed.append({
+    # 최종 데이터 생성
+    processed_data = []
+    for district in districts:
+        traffic_list = district_traffic[district]
+        total_traffic = sum(traffic_list)
+        lat, lon = coords[district]
+        
+        processed_data.append({
             'latitude': lat,
             'longitude': lon,
-            'district_name': d,
-            'total_traffic': total,
-            'point_count': len(t_list),
-            'avg_speed': max(20, 80 - (total / 1000)),
-            'congestion_level': min((total / 500), 100)
+            'district_name': district,
+            'total_traffic': total_traffic,
+            'point_count': len(traffic_list),
+            'avg_speed': max(20, 80 - (total_traffic / 1000)),
+            'congestion_level': min((total_traffic / 500), 100)
         })
     
-    return pd.DataFrame(processed)
+    return pd.DataFrame(processed_data)
 
-def get_color(amount):
-    """교통량별 색상"""
-    if amount <= 10000: return 'green'
-    elif amount <= 20000: return 'yellow'
-    elif amount <= 30000: return 'orange'
-    else: return 'red'
+def get_traffic_color(traffic_amount):
+    """교통량에 따른 색상 반환"""
+    if traffic_amount <= 10000:
+        return 'green'
+    elif traffic_amount <= 20000:
+        return 'yellow'
+    elif traffic_amount <= 30000:
+        return 'orange'
+    else:
+        return 'red'
 
-def create_map(df):
-    """지도 생성"""
-    if df.empty:
+def create_traffic_map(dataframe):
+    """교통정보 지도 생성"""
+    if dataframe.empty:
         return folium.Map(location=[36.3504, 127.3845], zoom_start=10)
     
-    m = folium.Map(location=[36.3504, 127.3845], zoom_start=10)
+    traffic_map = folium.Map(location=[36.3504, 127.3845], zoom_start=10)
     
-    for _, row in df.iterrows():
-        color = get_color(row['total_traffic'])
+    for _, row in dataframe.iterrows():
+        color = get_traffic_color(row['total_traffic'])
+        radius = max(15, min(40, row['total_traffic'] / 1000))
         
-        # 원형 마커
+        # 교통량 표시 원형 마커
         folium.CircleMarker(
             location=[row['latitude'], row['longitude']],
-            radius=max(15, min(40, row['total_traffic'] / 1000)),
+            radius=radius,
             popup=f"""
             <div style="width:200px">
                 <h4>{row['district_name']}</h4>
@@ -119,9 +126,9 @@ def create_map(df):
             fillColor=color,
             fillOpacity=0.7,
             weight=3
-        ).add_to(m)
+        ).add_to(traffic_map)
         
-        # 라벨
+        # 행정구 이름 라벨
         folium.Marker(
             location=[row['latitude'], row['longitude']],
             icon=folium.DivIcon(
@@ -129,51 +136,55 @@ def create_map(df):
                 icon_size=(60, 20),
                 icon_anchor=(30, 10)
             )
-        ).add_to(m)
+        ).add_to(traffic_map)
     
-    return m
+    return traffic_map
 
-# 메인 로직
-if api_key:
-    if refresh_button or 'data' not in st.session_state:
-        with st.spinner("데이터 로딩 중..."):
-            raw = fetch_data(api_key)
-            st.session_state.data = process_data(raw)
-            st.session_state.last_update = datetime.now().strftime("%H:%M:%S")
+def format_dataframe_for_display(dataframe):
+    """표시용 데이터프레임 포맷팅"""
+    display_df = dataframe[['district_name', 'total_traffic', 'point_count', 'avg_speed', 'congestion_level']].copy()
+    display_df.columns = ['행정구', '총교통량(대)', '측정지점(개)', '평균속도(km/h)', '혼잡도(%)']
+    display_df = display_df.sort_values('총교통량(대)', ascending=False)
     
-    if 'data' in st.session_state and not st.session_state.data.empty:
-        df = st.session_state.data
-        
-        if 'last_update' in st.session_state:
-            st.info(f"📅 업데이트: {st.session_state.last_update}")
-        
-        # 필터 제거 - 모든 데이터 표시
-        folium_static(create_map(df), width=1000, height=600)
-        
-        # 통계
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric("행정구", len(df))
-        with col2:
-            st.metric("총 교통량", f"{df['total_traffic'].sum():,}대")
-        with col3:
-            st.metric("평균 교통량", f"{df['total_traffic'].mean():,.0f}대")
-        with col4:
-            st.metric("평균 속도", f"{df['avg_speed'].mean():.1f}km/h")
-        
-        # 테이블
-        st.subheader("📊 행정구별 교통정보")
-        display = df[['district_name', 'total_traffic', 'point_count', 'avg_speed', 'congestion_level']].copy()
-        display.columns = ['행정구', '총교통량(대)', '측정지점(개)', '평균속도(km/h)', '혼잡도(%)']
-        display = display.sort_values('총교통량(대)', ascending=False)
-        
-        # 포맷팅
-        display['총교통량(대)'] = display['총교통량(대)'].apply(lambda x: f"{x:,}")
-        display['평균속도(km/h)'] = display['평균속도(km/h)'].apply(lambda x: f"{x:.1f}")
-        display['혼잡도(%)'] = display['혼잡도(%)'].apply(lambda x: f"{x:.1f}")
-        
-        st.dataframe(display, use_container_width=True)
-    else:
-        st.info("데이터를 새로고침해주세요.")
+    # 숫자 포맷팅
+    display_df['총교통량(대)'] = display_df['총교통량(대)'].apply(lambda x: f"{x:,}")
+    display_df['평균속도(km/h)'] = display_df['평균속도(km/h)'].apply(lambda x: f"{x:.1f}")
+    display_df['혼잡도(%)'] = display_df['혼잡도(%)'].apply(lambda x: f"{x:.1f}")
+    
+    return display_df
+
+# 메인 애플리케이션 로직
+if refresh_button or 'traffic_data' not in st.session_state:
+    with st.spinner("교통 데이터 로딩 중..."):
+        raw_data = fetch_data()
+        st.session_state.traffic_data = process_data(raw_data)
+        st.session_state.last_update = datetime.now().strftime("%H:%M:%S")
+
+if 'traffic_data' in st.session_state and not st.session_state.traffic_data.empty:
+    df = st.session_state.traffic_data
+    
+    # 업데이트 시간 표시
+    if 'last_update' in st.session_state:
+        st.info(f"📅 마지막 업데이트: {st.session_state.last_update}")
+    
+    # 지도 표시
+    folium_static(create_traffic_map(df), width=1000, height=600)
+    
+    # 통계 메트릭
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("**행정구 수**", len(df))
+    with col2:
+        st.metric("**총 교통량**", f"{df['total_traffic'].sum():,}대")
+    with col3:
+        st.metric("**평균 교통량**", f"{df['total_traffic'].mean():,.0f}대")
+    with col4:
+        st.metric("**평균 속도**", f"{df['avg_speed'].mean():.1f}km/h")
+    
+    # 상세 정보 테이블
+    st.subheader("📊 행정구별 상세 교통정보")
+    formatted_df = format_dataframe_for_display(df)
+    st.dataframe(formatted_df, use_container_width=True, hide_index=True)
+    
 else:
-    st.warning("API 키를 입력해주세요.")
+    st.warning("교통 데이터를 불러올 수 없습니다. 새로고침 버튼을 눌러주세요.")
