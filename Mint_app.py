@@ -4,6 +4,7 @@ from streamlit_folium import folium_static
 import pandas as pd
 import requests
 from datetime import datetime
+import pytz
 
 st.set_page_config(page_title="안동준을 위한 대전 실시간 교통정보", page_icon="🚗", layout="wide")
 
@@ -158,7 +159,10 @@ if refresh_button or 'traffic_data' not in st.session_state:
     with st.spinner("교통 데이터 로딩 중..."):
         raw_data = fetch_data()
         st.session_state.traffic_data = process_data(raw_data)
-        st.session_state.last_update = datetime.now().strftime("%Y-%m-%d %H:%M")
+        # 한국 시간대로 현재 시간 설정
+        kst = pytz.timezone('Asia/Seoul')
+        now_kst = datetime.now(kst)
+        st.session_state.last_update = now_kst.strftime("%Y-%m-%d %H:%M")
 
 if 'traffic_data' in st.session_state and not st.session_state.traffic_data.empty:
     df = st.session_state.traffic_data
