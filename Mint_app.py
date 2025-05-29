@@ -158,7 +158,7 @@ if refresh_button or 'traffic_data' not in st.session_state:
     with st.spinner("교통 데이터 로딩 중..."):
         raw_data = fetch_data()
         st.session_state.traffic_data = process_data(raw_data)
-        st.session_state.last_update = datetime.now().strftime("%H:%M:%S")
+        st.session_state.last_update = datetime.now().strftime("%Y-%m-%d %H:%M")
 
 if 'traffic_data' in st.session_state and not st.session_state.traffic_data.empty:
     df = st.session_state.traffic_data
