@@ -6,7 +6,7 @@ import requests
 from datetime import datetime
 import pytz
 
-st.set_page_config(page_title="안동준을 위한 대전 실시간 교통정보", page_icon="🚗", layout="wide")
+st.set_page_config(page_title="대전 실시간 교통정보", page_icon="🚗", layout="wide")
 
 @st.cache_data
 def get_coords():
@@ -19,7 +19,7 @@ def get_coords():
         "대덕구": (36.4234, 127.4123)
     }
 
-st.title("🚗 안동준을 위한 대전 실시간 교통정보")
+st.title("🚗 대전 실시간 교통정보 by 승민")
 st.write("대전광역시 5개 행정구별 실시간 교통량 시각화")
 
 with st.sidebar:
