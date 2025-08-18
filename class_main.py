@@ -13,7 +13,7 @@ class Smart_Vocab:
         self.total_words = len(word_list)
     
     def start_learn(self):
-        print("영어단어 학습시작")
+        print("단어 학습시작")
         return True
     
     def next_word(self):
