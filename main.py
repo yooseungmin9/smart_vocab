@@ -7,8 +7,8 @@ def main():
     
     while True:
         # 1. 학습 시작
-        start = input("\n학습을 시작하려면 Enter를 누르세요 (종료: q): ")
-        if start.lower() == 'q':
+        start = input("\n학습을 시작: Enter (종료: Q)")
+        if start.lower() == 'Q':
             break
             
         # 2. 단어 출제
@@ -22,10 +22,10 @@ def main():
                 if 1 <= answer <= 4:
                     correct = trainer.check_answer(answer, choices)
                     if correct:
-                        print(f"현재 점수: {trainer.score}/{trainer.total_questions}")
+                        print(f"현재 점수: {trainer.score}/{trainer.total_words}")
                         break  # 다음 문제로
                 else:
-                    print("1-4 사이의 숫자를 입력하세요.")
+                    print("틀렸습니다. 다시 선택하세요.")
             except ValueError:
                 print("숫자를 입력하세요.")
 
