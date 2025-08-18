@@ -27,13 +27,14 @@ if st.session_state.current_word:
     choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{st.session_state.trainer.current_index}")
 
     if not st.session_state.answered and choice is not None:
-        selected_index = st.session_state.choices.index(choice) + 1  # 1~4
+        selected_index = st.session_state.choices.index(choice) + 1
         correct = st.session_state.trainer.check_answer(selected_index, st.session_state.choices)
         if correct:
             st.success(f"정답! 🎉 현재 점수: {st.session_state.trainer.score}/{st.session_state.trainer.total_words}")
+            st.info(f"'{st.session_state.current_word['word']}'의 뜻은 '{st.session_state.current_word['correct_meaning']}'입니다.")  # ← 바로 출력
+            st.session_state.answered = True
         else:
             st.error(f"틀렸습니다. 다시 선택하세요.")
-        st.session_state.answered = True
 
 st.info(f"현재 점수: {st.session_state.trainer.score}/{st.session_state.trainer.total_words}")
 
@@ -47,4 +48,4 @@ if st.button("학습 종료하기"):
     st.session_state.last_result = None
 
 if st.session_state.current_word is None:
-    st.write("아래 [새 단어] 버튼을 눌러 학습을 시작하세요.")
+    st.write("[새 단어] 버튼을 눌러 학습을 시작하세요.")

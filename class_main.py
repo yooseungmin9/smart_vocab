@@ -9,6 +9,8 @@ class Smart_Vocab:
         self.is_answered = False
         self.score = 0
         self.total_questions = 0
+        self.current_index = 0 
+        self.total_words = len(word_list)
     
     def start_learn(self):
         print("영어단어 학습시작")
