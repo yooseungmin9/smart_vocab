@@ -1,8 +1,8 @@
 import random
 import json
-from jpn_word_list import word_list
+from jpn_word_list import jpn_word_list
 
-class Smart_Vocab:
+class Smart_vocab:
     def __init__(self, word_list):
         self.word_list = word_list
         self.current_word = None
@@ -13,7 +13,7 @@ class Smart_Vocab:
         self.total_words = len(word_list)
     
     def start_learn(self):
-        print("일본어 단어 학습시작")
+        print("단어 학습시작")
         return True
     
     def next_word(self):

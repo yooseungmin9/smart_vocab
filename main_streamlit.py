@@ -1,7 +1,7 @@
 import streamlit as st
 from eng_word_list import eng_word_list
 from jpn_word_list import jpn_word_list
-from class_main import Smart_Vocab
+from class_main import Smart_vocab
 
 # 언어별 단어 리스트 딕셔너리
 language_dict = {
@@ -13,7 +13,7 @@ language_dict = {
 if "selected_language" not in st.session_state:
     st.session_state.selected_language = '영어'
 if "trainer" not in st.session_state:
-    st.session_state.trainer = Smart_Vocab(language_dict[st.session_state.selected_language])
+    st.session_state.trainer = Smart_vocab(language_dict[st.session_state.selected_language])
     st.session_state.trainer.start_learn()
 if "current_word" not in st.session_state:
     st.session_state.current_word = None
@@ -41,7 +41,7 @@ selected_language = st.sidebar.selectbox(
 # 언어가 변경되었을 때 세션 상태 리셋
 if selected_language != st.session_state.selected_language:
     st.session_state.selected_language = selected_language
-    st.session_state.trainer = Smart_Vocab(language_dict[selected_language])
+    st.session_state.trainer = Smart_vocab(language_dict[selected_language])
     st.session_state.trainer.start_learn()
     st.session_state.current_word = None
     st.session_state.choices = None
@@ -66,7 +66,7 @@ def get_available_words():
 def get_next_word():
     available_words = get_available_words()
     if available_words:
-        st.session_state.trainer = Smart_Vocab(available_words)
+        st.session_state.trainer = Smart_vocab(available_words)
         st.session_state.trainer.start_learn()
         st.session_state.current_word = st.session_state.trainer.next_word()
         st.session_state.choices = st.session_state.trainer.present_question(st.session_state.current_word)
@@ -113,7 +113,7 @@ st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료")
 
 if st.button("학습 종료하기"):
     st.write("한번 더 누르면 학습을 종료합니다.")
-    st.session_state.trainer = Smart_Vocab(current_word_list)
+    st.session_state.trainer = Smart_vocab(current_word_list)
     st.session_state.trainer.start_learn()
     st.session_state.current_word = None
     st.session_state.choices = None
@@ -124,7 +124,7 @@ if st.button("학습 종료하기"):
 if available_count == 0:
     st.balloons()
     if st.button("🔄 처음부터 다시 시작"):
-        st.session_state.trainer = Smart_Vocab(current_word_list)
+        st.session_state.trainer = Smart_vocab(current_word_list)
         st.session_state.trainer.start_learn()
         st.session_state.current_word = None
         st.session_state.choices = None
