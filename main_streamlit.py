@@ -78,13 +78,6 @@ if st.button("오늘도 학습"):
     get_next_word()
 
 if st.session_state.current_word:
-    if st.button("다음 단어"):
-        if st.session_state.answered:
-            get_next_word()
-        else:
-            st.warning("현재 문제를 먼저 풀어주세요")
-
-if st.session_state.current_word:
     word_text = st.session_state.current_word['word']
     correct_count = st.session_state.word_correct_count.get(word_text, 0)
     st.subheader(f"Q: {word_text}")
@@ -92,6 +85,13 @@ if st.session_state.current_word:
         st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
     st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
+
+    if st.session_state.current_word:
+        if st.button("다음 단어"):
+            if st.session_state.answered:
+                get_next_word()
+            else:
+                st.warning("현재 문제를 먼저 풀어주세요")
 
     if not st.session_state.answered and choice is not None:
         selected_index = st.session_state.choices.index(choice) + 1
