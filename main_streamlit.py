@@ -151,3 +151,4 @@ if available_count == 0:
         st.session_state.word_correct_count = {}
         st.session_state.completed_words = set()
         st.rerun()
+#
