@@ -2,7 +2,6 @@ import streamlit as st
 from word_list import word_list
 from class_main import Smart_Vocab
 
-# 세션 상태 초기화
 if "trainer" not in st.session_state:
     st.session_state.trainer = Smart_Vocab(word_list)
     st.session_state.trainer.start_learn()
@@ -12,36 +11,59 @@ if "choices" not in st.session_state:
     st.session_state.choices = None
 if "answered" not in st.session_state:
     st.session_state.answered = True
-if "last_result" not in st.session_state:
-    st.session_state.last_result = None
+if "word_correct_count" not in st.session_state:
+    st.session_state.word_correct_count = {}  # 단어별 맞춘 횟수
+if "completed_words" not in st.session_state:
+    st.session_state.completed_words = set()
 
 st.title("📚 Smart Vocab for Denmark Sik")
 st.write("매일 매일 10개씩만하자 - Yoo (Update: 2025.08.18)")
 
-if st.button("새 단어"):
-    st.session_state.current_word = st.session_state.trainer.next_word()
-    st.session_state.choices = st.session_state.trainer.present_question(st.session_state.current_word)
-    st.session_state.answered = False
-    st.session_state.last_result = None
+MAX_ATTEMPTS = 3
+
+def get_available_words():
+    return [
+        word for word in word_list
+        if st.session_state.word_correct_count.get(word['word'], 0) < MAX_ATTEMPTS
+    ]
+
+if st.button("새 단어 / 다음 단어"):
+    available_words = get_available_words()
+    if available_words:
+        st.session_state.trainer = Smart_Vocab(available_words)
+        st.session_state.trainer.start_learn()
+        st.session_state.current_word = st.session_state.trainer.next_word()
+        st.session_state.choices = st.session_state.trainer.present_question(st.session_state.current_word)
+        st.session_state.answered = False
+    else:
+        st.warning("모든 단어를 3번씩 맞췄습니다! 🎉")
 
 if st.session_state.current_word:
-    st.subheader(f"Q: {st.session_state.current_word['word']}")
+    word_text = st.session_state.current_word['word']
+    correct_count = st.session_state.word_correct_count.get(word_text, 0)
+    st.subheader(f"Q: {word_text}")
+    st.caption(f"📊 이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     if 'accent' in st.session_state.current_word:
         st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
-        
-        choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{st.session_state.trainer.current_index}")
+    choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
 
     if not st.session_state.answered and choice is not None:
         selected_index = st.session_state.choices.index(choice) + 1
         correct = st.session_state.trainer.check_answer(selected_index, st.session_state.choices)
         if correct:
-            st.success(f"정답! 🎉 현재 점수: {st.session_state.trainer.score}/{st.session_state.trainer.total_words}")
-            st.info(f"'{st.session_state.current_word['word']}'의 뜻은 '{st.session_state.current_word['correct_meaning']}'입니다.")
             st.session_state.answered = True
+            st.success("정답 🎉")
+            st.info(f"'{word_text}'의 뜻은 '{st.session_state.current_word['correct_meaning']}'입니다.")
+            st.session_state.word_correct_count[word_text] = correct_count + 1
+            if word_text not in st.session_state.completed_words:
+                st.session_state.completed_words.add(word_text)
         else:
-            st.error(f"틀렸습니다. 다시 선택하세요.")
+            st.error("틀렸습니다. 다시 선택하세요.")
 
-st.info(f"현재 점수: {st.session_state.trainer.score}/{st.session_state.trainer.total_words}")
+total_words = len(word_list)
+completed_count = len(st.session_state.completed_words)
+available_count = len(get_available_words())
+st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료 (남은 단어: {available_count}개)")
 
 if st.button("학습 종료하기"):
     st.write("학습을 종료합니다.")
@@ -50,7 +72,20 @@ if st.button("학습 종료하기"):
     st.session_state.current_word = None
     st.session_state.choices = None
     st.session_state.answered = True
-    st.session_state.last_result = None
+    st.session_state.word_correct_count = {}
+    st.session_state.completed_words = set()
+
+if available_count == 0:
+    st.balloons()
+    if st.button("🔄 처음부터 다시 시작"):
+        st.session_state.trainer = Smart_Vocab(word_list)
+        st.session_state.trainer.start_learn()
+        st.session_state.current_word = None
+        st.session_state.choices = None
+        st.session_state.answered = True
+        st.session_state.word_correct_count = {}
+        st.session_state.completed_words = set()
+        st.rerun()
 
 if st.session_state.current_word is None:
     st.write("[새 단어] 버튼을 눌러 학습을 시작하세요.")
