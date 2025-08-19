@@ -17,7 +17,7 @@ if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
 st.title("📚 Smart Vocab for Denmark Sik")
-st.write("매일 매일 10개씩만하자 - Yoo (Update: 2025.08.20)")
+st.write("매일 매일 10개씩만하자 - Yoo (Update: 2025.08.19)")
 
 MAX_ATTEMPTS = 3
 
