@@ -16,9 +16,9 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-st.title(st.image("Logo.png", width=50),"Oneldo Vocab")
-st.write("매일 매일 10개씩만 하자 - Yoo (Update: 2025.08.19)")
-st.write("오늘도 화이팅하십쇼. 대표님.")
+st.image("Logo.png", width=50)
+st.title("매일 매일 10개씩만 하자 - Yoo")
+st.write("Update: 2025.08.19")
 
 MAX_ATTEMPTS = 3
 
