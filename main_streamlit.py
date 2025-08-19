@@ -43,7 +43,7 @@ def get_base64_svg(svg_path):
         return None
 
 
-def logo_with_title(image_path, title="오늘도 보카 in 일본 🇯🇵", width=80):
+def logo_with_title(image_path, title="오늘도 보카", width=80):
     """이미지 확장자를 자동 감지하여 로고와 제목을 표시"""
     if not os.path.exists(image_path):
         st.title(title)
@@ -81,7 +81,7 @@ def logo_with_title(image_path, title="오늘도 보카 in 일본 🇯🇵", wid
         st.error(f"이미지 로딩 오류: {e}")
         st.title(title)
 
-logo_with_title("logo.svg", "오늘도 보카", width=60) # PNG 파일
+logo_with_title("logo.svg", "오늘도 보카 in 일본 🇯🇵", width=60) # PNG 파일
 st.write("오늘의 날짜 : 2025년 08월 19일")
 
 MAX_ATTEMPTS = 3
