@@ -22,9 +22,7 @@ if "completed_words" not in st.session_state:
 
 
 def get_base64_image(image_path, width=60):
-    """이미지를 리사이징하고 base64로 인코딩"""
     image = Image.open(image_path)
-    # 비율 유지하면서 리사이징
     height = int(width * image.height / image.width)
     resized = image.resize((width, height), resample=Image.Resampling.LANCZOS)
 
@@ -34,11 +32,8 @@ def get_base64_image(image_path, width=60):
 
     return base64.b64encode(buffer.getvalue()).decode()
 
+logo_base64 = get_base64_image("logo.png", width=80)
 
-# 로고를 base64로 인코딩
-logo_base64 = get_base64_image("logo.png", width=100)
-
-# HTML로 이미지와 제목을 나란히 배치
 st.markdown(f"""
 <div style="display: flex; align-items: center; margin-bottom: 20px;">
     <img src="data:image/png;base64,{logo_base64}" 
