@@ -32,56 +32,7 @@ def get_base64_image(image_path, width=60):
 
     return base64.b64encode(buffer.getvalue()).decode()
 
-
-def get_base64_svg(svg_path):
-    """SVG 파일을 base64로 인코딩"""
-    try:
-        with open(svg_path, 'r', encoding='utf-8') as f:
-            svg_content = f.read()
-        return base64.b64encode(svg_content.encode('utf-8')).decode()
-    except FileNotFoundError:
-        return None
-
-
-def logo_with_title(image_path, title="오늘도 보카", width=80):
-    """이미지 확장자를 자동 감지하여 로고와 제목을 표시"""
-    if not os.path.exists(image_path):
-        st.title(title)
-        return
-
-    # 파일 확장자 확인
-    file_ext = os.path.splitext(image_path)[1].lower()
-
-    try:
-        if file_ext == '.svg':
-            # SVG 파일 처리
-            svg_base64 = get_base64_svg(image_path)
-            if svg_base64:
-                st.markdown(f"""
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <img src="data:image/svg+xml;base64,{svg_base64}" 
-                         width="{width}" 
-                         style="margin-right: 15px; border-radius: 8px;">
-                    <h1 style="margin: 0; color: #262730;">{title}</h1>
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.title(title)
-        else:
-            # PNG/JPG 파일 처리
-            image_base64 = get_base64_image(image_path, width)
-            st.markdown(f"""
-            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                <img src="data:image/png;base64,{image_base64}" 
-                     style="margin-right: 15px; border-radius: 8px;">
-                <h1 style="margin: 0; color: #262730;">{title}</h1>
-            </div>
-            """, unsafe_allow_html=True)
-    except Exception as e:
-        st.error(f"이미지 로딩 오류: {e}")
-        st.title(title)
-
-logo_with_title("logo.svg", "오늘도 보카 in 일본 🇯🇵", width=60) # PNG 파일
+st.title("오늘도 보카 in 일본 🇯🇵") # PNG 파일
 st.write("오늘의 날짜 : 2025년 08월 19일")
 
 MAX_ATTEMPTS = 3
