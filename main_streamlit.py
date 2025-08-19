@@ -1,4 +1,6 @@
 import streamlit as st
+from numpy.ma.core import outer
+
 from word_list import word_list
 from class_main import Smart_Vocab
 import base64
@@ -34,14 +36,14 @@ def get_base64_image(image_path, width=60):
 
 
 # 로고를 base64로 인코딩
-logo_base64 = get_base64_image("logo.png", width=60)
+logo_base64 = get_base64_image("logo.png", width=100, output_format='PNG')
 
 # HTML로 이미지와 제목을 나란히 배치
 st.markdown(f"""
 <div style="display: flex; align-items: center; margin-bottom: 20px;">
     <img src="data:image/png;base64,{logo_base64}" 
          style="margin-right: 15px; border-radius: 8px;">
-    <h1 style="margin: 0; color: #262730;">Oneldo Voca</h1>
+    <h1 style="margin: 0; color: #262730;">오늘도 보카</h1>
 </div>
 """, unsafe_allow_html=True)
 st.write("Update: 2025.08.19")
