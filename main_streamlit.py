@@ -43,7 +43,7 @@ st.markdown("""
 
     /* 사이드바 폰트 크기 */
     .sidebar .sidebar-content {
-        font-size: 14px !important;
+        font-size: 18px !important;
     }
 
     /* 경고/정보 메시지 폰트 크기 */
@@ -82,7 +82,7 @@ if "completed_words" not in st.session_state:
 st.title("📚 오늘도 보카 Oneldo Vocab")
 st.write("오늘의 날짜 : 2025년 08월 19일")
 
-st.sidebar.header("🌍 언어 선택")
+st.sidebar.subheader("🌍언어 선택")
 
 default_language = '영어'
 selected_language = st.sidebar.selectbox(
