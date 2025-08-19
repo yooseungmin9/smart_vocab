@@ -130,7 +130,7 @@ completed_count = len(st.session_state.completed_words)
 available_count = len(get_available_words())
 st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료")
 
-if st.button("학습 종료하기"):
+if st.button("학습 종료하기 / 더블 클릭"):
     st.session_state.trainer = Smart_Vocab(word_list)
     st.session_state.trainer.start_learn()
     st.session_state.current_word = None
