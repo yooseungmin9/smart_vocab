@@ -26,7 +26,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# 언어별 단어 리스트 딕셔너리
 language_dict = {
     '영어': eng_word_list,
     '일본어': jpn_word_list,
@@ -48,6 +47,14 @@ if "word_correct_count" not in st.session_state:
     st.session_state.word_correct_count = {}
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
+
+with st.container():
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+st.markdown("<h1 style='text-align: center;'>📚오늘도 보카 Oneldo Vocab</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>오늘의 날짜 : 2025년 08월 19일</p>", unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.title("📚오늘도 보카 Oneldo Vocab")
 st.write("오늘의 날짜 : 2025년 08월 19일")
