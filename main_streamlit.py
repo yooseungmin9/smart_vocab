@@ -1,10 +1,6 @@
 import streamlit as st
 from word_list import word_list
 from class_main import Smart_Vocab
-import base64
-from PIL import Image
-import os
-import io
 
 if "trainer" not in st.session_state:
     st.session_state.trainer = Smart_Vocab(word_list)
@@ -19,18 +15,6 @@ if "word_correct_count" not in st.session_state:
     st.session_state.word_correct_count = {}
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
-
-
-def get_base64_image(image_path, width=60):
-    """PNG/JPG 이미지를 리사이징하고 base64로 인코딩"""
-    image = Image.open(image_path)
-    height = int(width * image.height / image.width)
-    resized = image.resize((width, height), resample=Image.Resampling.LANCZOS)
-
-    buffer = io.BytesIO()
-    resized.save(buffer, format='PNG', optimize=True, quality=95)
-
-    return base64.b64encode(buffer.getvalue()).decode()
 
 st.title("오늘도 보카 in 일본 🇯🇵") # PNG 파일
 st.write("오늘의 날짜 : 2025년 08월 19일")
