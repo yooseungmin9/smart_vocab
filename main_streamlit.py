@@ -3,6 +3,61 @@ from eng_word_list import eng_word_list
 from jpn_word_list import jpn_word_list
 from class_main import Smart_vocab
 
+st.markdown("""
+<style>
+    /* 전체 앱의 기본 폰트 크기 */
+    .main .block-container {
+        font-size: 18px;
+    }
+
+    /* 제목 폰트 크기 */
+    h1 {
+        font-size: 3rem !important;
+    }
+
+    /* 서브헤더 폰트 크기 */
+    h2, h3 {
+        font-size: 2.2rem !important;
+    }
+
+    /* 일반 텍스트 폰트 크기 */
+    p, div, span {
+        font-size: 18px !important;
+    }
+
+    /* 버튼 폰트 크기 */
+    .stButton > button {
+        font-size: 18px !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    /* 라디오 버튼 폰트 크기 */
+    .stRadio > div {
+        font-size: 18px !important;
+    }
+
+    /* 셀렉트박스 폰트 크기 */
+    .stSelectbox > div > div {
+        font-size: 18px !important;
+    }
+
+    /* 사이드바 폰트 크기 */
+    .sidebar .sidebar-content {
+        font-size: 18px !important;
+    }
+
+    /* 경고/정보 메시지 폰트 크기 */
+    .stAlert {
+        font-size: 18px !important;
+    }
+
+    /* 캡션 폰트 크기 */
+    .caption {
+        font-size: 16px !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 language_dict = {
     '영어': eng_word_list,
     '일본어': jpn_word_list,
