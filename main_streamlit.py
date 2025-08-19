@@ -81,7 +81,7 @@ def display_logo_with_title(image_path, title="오늘도 보카", width=80):
         st.error(f"이미지 로딩 오류: {e}")
         st.title(title)
 
-display_logo_with_title("logo.svg", "오늘도 보카", width=80)  # PNG 파일
+display_logo_with_title("logo.svg", "오늘도 보카", width=60)  # PNG 파일
 st.write("Update: 2025.08.19")
 
 MAX_ATTEMPTS = 3
