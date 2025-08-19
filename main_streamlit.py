@@ -3,6 +3,8 @@ from word_list import word_list
 from class_main import Smart_Vocab
 import base64
 from PIL import Image
+import os
+import io
 
 if "trainer" not in st.session_state:
     st.session_state.trainer = Smart_Vocab(word_list)
@@ -20,25 +22,66 @@ if "completed_words" not in st.session_state:
 
 
 def get_base64_image(image_path, width=60):
+    """PNG/JPG 이미지를 리사이징하고 base64로 인코딩"""
     image = Image.open(image_path)
     height = int(width * image.height / image.width)
     resized = image.resize((width, height), resample=Image.Resampling.LANCZOS)
 
-    import io
     buffer = io.BytesIO()
-    resized.save(buffer, format='SVG', optimize=True, quality=95)
+    resized.save(buffer, format='PNG', optimize=True, quality=95)
 
     return base64.b64encode(buffer.getvalue()).decode()
 
-logo_base64 = get_base64_image("logo.svg", width=80)
 
-st.markdown(f"""
-<div style="display: flex; align-items: center; margin-bottom: 20px;">
-    <img src="data:image/png;base64,{logo_base64}" 
-         style="margin-right: 15px; border-radius: 8px;">
-    <h1 style="margin: 0; color: #262730;">오늘도 보카</h1>
-</div>
-""", unsafe_allow_html=True)
+def get_base64_svg(svg_path):
+    """SVG 파일을 base64로 인코딩"""
+    try:
+        with open(svg_path, 'r', encoding='utf-8') as f:
+            svg_content = f.read()
+        return base64.b64encode(svg_content.encode('utf-8')).decode()
+    except FileNotFoundError:
+        return None
+
+
+def display_logo_with_title(image_path, title="오늘도 보카", width=80):
+    """이미지 확장자를 자동 감지하여 로고와 제목을 표시"""
+    if not os.path.exists(image_path):
+        st.title(title)
+        return
+
+    # 파일 확장자 확인
+    file_ext = os.path.splitext(image_path)[1].lower()
+
+    try:
+        if file_ext == '.svg':
+            # SVG 파일 처리
+            svg_base64 = get_base64_svg(image_path)
+            if svg_base64:
+                st.markdown(f"""
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <img src="data:image/svg+xml;base64,{svg_base64}" 
+                         width="{width}" 
+                         style="margin-right: 15px; border-radius: 8px;">
+                    <h1 style="margin: 0; color: #262730;">{title}</h1>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.title(title)
+        else:
+            # PNG/JPG 파일 처리
+            image_base64 = get_base64_image(image_path, width)
+            st.markdown(f"""
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <img src="data:image/png;base64,{image_base64}" 
+                     style="margin-right: 15px; border-radius: 8px;">
+                <h1 style="margin: 0; color: #262730;">{title}</h1>
+            </div>
+            """, unsafe_allow_html=True)
+    except Exception as e:
+        st.error(f"이미지 로딩 오류: {e}")
+        st.title(title)
+
+display_logo_with_title("logo.svg", "오늘도 보카", width=80)  # PNG 파일
 st.write("Update: 2025.08.19")
 
 MAX_ATTEMPTS = 3
