@@ -12,7 +12,7 @@ if "choices" not in st.session_state:
 if "answered" not in st.session_state:
     st.session_state.answered = True
 if "word_correct_count" not in st.session_state:
-    st.session_state.word_correct_count = {}  # 단어별 맞춘 횟수
+    st.session_state.word_correct_count = {}
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 

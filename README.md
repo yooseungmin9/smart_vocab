@@ -1,5 +1,5 @@
-# Mint_app (Use Streamlit)
+# smart_vocab_app (Use Streamlit)
 
-This is a real-time look at the traffic across Daejeon in South Korea.
+This is a smart vocabulary learning app. (More features coming soon)
 
-Link : https://mintapp.streamlit.app/
+Link : https://smartvocab.streamlit.app/

@@ -1,12 +1,13 @@
 word_list = [
-    {"word": "勉強", "meanings": ["공부", "학습", "연구", "노력"], "correct_meaning": "공부", "accent": "베엔-꾜오"},
-    {"word": "友達", "meanings": ["친구", "동료", "벗", "친구들"], "correct_meaning": "친구", "accent": "토모-다찌"},
-    {"word": "美しい", "meanings": ["아름다운", "예쁜", "곱다", "멋진"], "correct_meaning": "아름다운", "accent": "우츠쿠-시이"},
-    {"word": "難しい", "meanings": ["어려운", "힘든", "복잡한", "까다로운"], "correct_meaning": "어려운", "accent": "무즈카-시이"},
-    {"word": "楽しい", "meanings": ["즐거운", "재미있는", "기쁜", "신나는"], "correct_meaning": "즐거운", "accent": "타노-시이"},
-    {"word": "元気", "meanings": ["건강", "기운", "활기", "정신"], "correct_meaning": "건강", "accent": "겐키"},
-    {"word": "静か", "meanings": ["조용한", "고요한", "평온한", "잠잠한"], "correct_meaning": "조용한", "accent": "시즈카"},
-    {"word": "親切", "meanings": ["친절", "상냥함", "정다움", "자상함"], "correct_meaning": "친절", "accent": "신세츠"},
-    {"word": "便利", "meanings": ["편리", "편의", "유용함", "간편함"], "correct_meaning": "편리", "accent": "벤리"},
-    {"word": "有名", "meanings": ["유명", "명성", "명망", "인지도"], "correct_meaning": "유명", "accent": "유-메이"},
+{"word": "会社", "meanings": ["회사", "직장", "기업", "사업체"], "correct_meaning": "회사", "accent": "카이-샤"},
+{"word": "先生", "meanings": ["선생님", "교사", "스승", "지도자"], "correct_meaning": "선생님", "accent": "센-세이"},
+{"word": "家族", "meanings": ["가족", "가정", "식구", "가문"], "correct_meaning": "가족", "accent": "카-조쿠"},
+{"word": "時間", "meanings": ["시간", "시각", "시점", "기간"], "correct_meaning": "시간", "accent": "지-칸"},
+{"word": "映画", "meanings": ["영화", "비디오", "영상", "공연"], "correct_meaning": "영화", "accent": "에이-가"},
+{"word": "問題", "meanings": ["문제", "과제", "문항", "숙제"], "correct_meaning": "문제", "accent": "몬-다이"},
+{"word": "趣味", "meanings": ["취미", "흥미", "관심사", "재미"], "correct_meaning": "취미", "accent": "슈-미"},
+{"word": "試験", "meanings": ["시험", "테스트", "검사", "평가"], "correct_meaning": "시험", "accent": "시-켄"},
+{"word": "季節", "meanings": ["계절", "절기", "시기", "시즌"], "correct_meaning": "계절", "accent": "키-세츠"},
+{"word": "自転車", "meanings": ["자전거", "탈 것", "바이크", "차"], "correct_meaning": "자전거", "accent": "지-텐-샤"}
+
 ]
