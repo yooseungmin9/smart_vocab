@@ -43,7 +43,7 @@ st.markdown("""
 
     /* 사이드바 폰트 크기 */
     .sidebar .sidebar-content {
-        font-size: 16px !important;
+        font-size: 14px !important;
     }
 
     /* 경고/정보 메시지 폰트 크기 */
