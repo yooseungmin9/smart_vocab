@@ -17,14 +17,7 @@ if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
 st.image("logo.svg", width=300)
-with open("logo.svg", "r") as f:
-    svg_content = f.read()
-
-st.markdown(f"""
-<div style="width: 300px;">
-    {svg_content}
-</div>
-""", unsafe_allow_html=True)
+st.title("Oneldo Voca")
 st.write("Update: 2025.08.19")
 
 MAX_ATTEMPTS = 3
