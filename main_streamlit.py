@@ -38,21 +38,15 @@ def get_next_word():
     else:
         st.warning("모든 단어를 3번씩 맞췄습니다 🎉")
 
-# 버튼을 두 개의 컬럼으로 분리
-col1, col2 = st.columns(2)
+if st.button("오늘도 학습"):
+    get_next_word()
 
-with col1:
-    if st.button("오늘도 학습"):
-        get_next_word()
-
-with col2:
+if st.session_state.current_word:
     if st.button("다음 단어"):
-        if st.session_state.current_word and st.session_state.answered:
+        if st.session_state.answered:
             get_next_word()
-        elif st.session_state.current_word and not st.session_state.answered:
-            st.warning("현재 문제를 먼저 풀어주세요!")
         else:
-            get_next_word()
+            st.warning("현재 문제를 먼저 풀어주세요")
 
 if st.session_state.current_word:
     word_text = st.session_state.current_word['word']
