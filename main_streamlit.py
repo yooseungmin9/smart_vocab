@@ -16,7 +16,7 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-st.image("Logo.png", width=300, output_format='PNG')
+st.image("Logo.svg", width=300, output_format='SVG')
 st.write("Update: 2025.08.19")
 
 MAX_ATTEMPTS = 3
