@@ -3,6 +3,29 @@ from eng_word_list import eng_word_list
 from jpn_word_list import jpn_word_list
 from class_main import Smart_vocab
 
+st.markdown("""
+<style>
+    .main-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .stButton > button {
+        margin: 0 auto;
+        display: block;
+    }
+    .stRadio > div {
+        text-align: left;
+        margin: 0 auto;
+        display: inline-block;
+    }
+    .stSelectbox > div {
+        margin: 0 auto;
+        max-width: 300px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # 언어별 단어 리스트 딕셔너리
 language_dict = {
     '영어': eng_word_list,
