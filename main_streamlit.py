@@ -1,6 +1,4 @@
 import streamlit as st
-from numpy.ma.core import outer
-
 from word_list import word_list
 from class_main import Smart_Vocab
 import base64
@@ -28,11 +26,11 @@ def get_base64_image(image_path, width=60):
 
     import io
     buffer = io.BytesIO()
-    resized.save(buffer, format='PNG', optimize=True, quality=95)
+    resized.save(buffer, format='SVG', optimize=True, quality=95)
 
     return base64.b64encode(buffer.getvalue()).decode()
 
-logo_base64 = get_base64_image("logo.png", width=80)
+logo_base64 = get_base64_image("logo.svg", width=80)
 
 st.markdown(f"""
 <div style="display: flex; align-items: center; margin-bottom: 20px;">
