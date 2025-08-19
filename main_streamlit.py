@@ -17,7 +17,7 @@ st.markdown("""
 
     /* 서브헤더 폰트 크기 */
     h2, h3 {
-        font-size: 2.2rem !important;
+        font-size: 2.0rem !important;
     }
 
     /* 일반 텍스트 폰트 크기 */
@@ -43,7 +43,7 @@ st.markdown("""
 
     /* 사이드바 폰트 크기 */
     .sidebar .sidebar-content {
-        font-size: 10px !important;
+        font-size: 18px !important;
     }
 
     /* 경고/정보 메시지 폰트 크기 */
