@@ -3,13 +3,35 @@ from eng_word_list import eng_word_list
 from jpn_word_list import jpn_word_list
 from class_main import Smart_vocab
 
-# 언어별 단어 리스트 딕셔너리
+st.markdown("""
+<style>
+    .main-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .stButton > button {
+        margin: 0 auto;
+        display: block;
+    }
+    .stRadio > div {
+        text-align: left;
+        margin: 0 auto;
+        display: inline-block;
+    }
+    .stSelectbox > div {
+        margin: 0 auto;
+        max-width: 300px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 language_dict = {
     '영어': eng_word_list,
     '일본어': jpn_word_list,
 }
 
-# 세션 상태 초기화 (기존과 동일)
+# 세션 상태 초기화
 if "selected_language" not in st.session_state:
     st.session_state.selected_language = '영어'
 if "trainer" not in st.session_state:
@@ -26,11 +48,13 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-# 제목 중앙 정렬
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    st.title("📚오늘도 보카 Oneldo Vocab")
-    st.write("오늘의 날짜 : 2025년 08월 19일")
+with st.container():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+    st.markdown("<h1 style='text-align: center;'>📚오늘도 보카 Oneldo Vocab</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'>오늘의 날짜 : 2025년 08월 19일</p>", unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 st.sidebar.header("🌍언어 선택")
 
@@ -60,13 +84,11 @@ current_word_list = language_dict[st.session_state.selected_language]
 
 MAX_ATTEMPTS = 3
 
-
 def get_available_words():
     return [
         word for word in current_word_list
         if st.session_state.word_correct_count.get(word['word'], 0) < MAX_ATTEMPTS
     ]
-
 
 def get_next_word():
     available_words = get_available_words()
@@ -79,33 +101,20 @@ def get_next_word():
     else:
         st.warning("모든 단어를 3번씩 맞췄습니다 🎉")
 
+if st.button("오늘도 학습"):
+    get_next_word()
 
-# 버튼 중앙 정렬
-col1, col2, col3 = st.columns([1, 1, 1])
-with col2:
-    if st.button("오늘도 학습", use_container_width=True):
-        get_next_word()
-
-# 메인 학습 영역 중앙 정렬
 if st.session_state.current_word:
     word_text = st.session_state.current_word['word']
     correct_count = st.session_state.word_correct_count.get(word_text, 0)
-
-    # 문제 표시 중앙 정렬
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.subheader(f"Q: {word_text}")
-        if 'accent' in st.session_state.current_word:
-            st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
-        st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
-
-    # 선택지는 전체 너비 사용 (가독성을 위해)
+    st.subheader(f"Q: {word_text}")
+    if 'accent' in st.session_state.current_word:
+        st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
+    st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
 
-    # 다음 단어 버튼 중앙 정렬
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col2:
-        if st.button("다음 단어", use_container_width=True):
+    if st.session_state.current_word:
+        if st.button("다음 단어"):
             if st.session_state.answered:
                 get_next_word()
             else:
@@ -129,11 +138,19 @@ completed_count = len(st.session_state.completed_words)
 available_count = len(get_available_words())
 st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료")
 
-# 하단 버튼들 중앙 정렬
-col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 1])
-with col3:
-    if st.button("학습 종료하기", use_container_width=True):
-        st.write("한번 더 누르면 학습을 종료합니다.")
+if st.button("학습 종료하기"):
+    st.write("한번 더 누르면 학습을 종료합니다.")
+    st.session_state.trainer = Smart_vocab(current_word_list)
+    st.session_state.trainer.start_learn()
+    st.session_state.current_word = None
+    st.session_state.choices = None
+    st.session_state.answered = True
+    st.session_state.word_correct_count = {}
+    st.session_state.completed_words = set()
+
+if available_count == 0:
+    st.balloons()
+    if st.button("🔄 처음부터 다시 시작"):
         st.session_state.trainer = Smart_vocab(current_word_list)
         st.session_state.trainer.start_learn()
         st.session_state.current_word = None
@@ -141,17 +158,4 @@ with col3:
         st.session_state.answered = True
         st.session_state.word_correct_count = {}
         st.session_state.completed_words = set()
-
-if available_count == 0:
-    st.balloons()
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col2:
-        if st.button("🔄 처음부터 다시 시작", use_container_width=True):
-            st.session_state.trainer = Smart_vocab(current_word_list)
-            st.session_state.trainer.start_learn()
-            st.session_state.current_word = None
-            st.session_state.choices = None
-            st.session_state.answered = True
-            st.session_state.word_correct_count = {}
-            st.session_state.completed_words = set()
-            st.rerun()
+        st.rerun()
