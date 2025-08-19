@@ -26,10 +26,10 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-st.title("오늘도 보카 Oneldo Vocab")
+st.title("📚오늘도 보카 Oneldo Vocab")
 st.write("오늘의 날짜 : 2025년 08월 19일")
 
-st.sidebar.header("🌍 언어 선택")
+st.sidebar.header("🌍언어 선택")
 
 default_language = '영어'
 selected_language = st.sidebar.selectbox(
@@ -88,9 +88,9 @@ if st.session_state.current_word:
     word_text = st.session_state.current_word['word']
     correct_count = st.session_state.word_correct_count.get(word_text, 0)
     st.subheader(f"Q: {word_text}")
-    st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     if 'accent' in st.session_state.current_word:
         st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
+    st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
 
     if not st.session_state.answered and choice is not None:
