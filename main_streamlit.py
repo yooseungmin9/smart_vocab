@@ -43,7 +43,7 @@ def get_base64_svg(svg_path):
         return None
 
 
-def logo_with_title(image_path, title="오늘도 보카", width=80):
+def logo_with_title(image_path, title="오늘도 보카 in 일본 🇯🇵", width=80):
     """이미지 확장자를 자동 감지하여 로고와 제목을 표시"""
     if not os.path.exists(image_path):
         st.title(title)
