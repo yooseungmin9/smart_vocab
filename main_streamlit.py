@@ -36,7 +36,7 @@ def get_base64_image(image_path, width=60):
 
 
 # 로고를 base64로 인코딩
-logo_base64 = get_base64_image("logo.png", width=100, output_format='PNG')
+logo_base64 = get_base64_image("logo.png", width=100)
 
 # HTML로 이미지와 제목을 나란히 배치
 st.markdown(f"""
