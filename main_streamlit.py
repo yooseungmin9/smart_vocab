@@ -128,7 +128,7 @@ if st.session_state.current_word:
 total_words = len(word_list)
 completed_count = len(st.session_state.completed_words)
 available_count = len(get_available_words())
-st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료 (남은 단어: {available_count}개)")
+st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료")
 
 if st.button("학습 종료하기"):
     st.write("한번 더 누르면 학습을 종료합니다.")
