@@ -101,13 +101,13 @@ if st.button("새 단어 / 다음 단어"):
         st.session_state.choices = st.session_state.trainer.present_question(st.session_state.current_word)
         st.session_state.answered = False
     else:
-        st.warning("모든 단어를 3번씩 맞췄습니다! 🎉")
+        st.warning("모든 단어를 3번씩 맞췄습니다 🎉")
 
 if st.session_state.current_word:
     word_text = st.session_state.current_word['word']
     correct_count = st.session_state.word_correct_count.get(word_text, 0)
     st.subheader(f"Q: {word_text}")
-    st.caption(f"📊 이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
+    st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     if 'accent' in st.session_state.current_word:
         st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
     choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
@@ -151,4 +151,3 @@ if available_count == 0:
         st.session_state.word_correct_count = {}
         st.session_state.completed_words = set()
         st.rerun()
-#
