@@ -67,7 +67,6 @@ st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료")
 
 if st.button("학습 종료하기"):
     st.write("한번 더 누르면 학습을 종료합니다.")
-    st.write("다시 시작하려면 [새단어]를 누르세요.")
     st.session_state.trainer = Smart_Vocab(word_list)
     st.session_state.trainer.start_learn()
     st.session_state.current_word = None
