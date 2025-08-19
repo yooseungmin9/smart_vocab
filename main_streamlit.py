@@ -16,7 +16,7 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-st.title("오늘도 보카 in 일본 🇯🇵") # PNG 파일
+st.title("오늘도 보카 in 일본 🇯🇵")
 st.write("오늘의 날짜 : 2025년 08월 19일")
 
 MAX_ATTEMPTS = 3
@@ -27,7 +27,7 @@ def get_available_words():
         if st.session_state.word_correct_count.get(word['word'], 0) < MAX_ATTEMPTS
     ]
 
-if st.button("새 단어 / 다음 단어"):
+def get_next_word():
     available_words = get_available_words()
     if available_words:
         st.session_state.trainer = Smart_Vocab(available_words)
@@ -37,6 +37,22 @@ if st.button("새 단어 / 다음 단어"):
         st.session_state.answered = False
     else:
         st.warning("모든 단어를 3번씩 맞췄습니다 🎉")
+
+# 버튼을 두 개의 컬럼으로 분리
+col1, col2 = st.columns(2)
+
+with col1:
+    if st.button("오늘도 학습"):
+        get_next_word()
+
+with col2:
+    if st.button("다음 단어"):
+        if st.session_state.current_word and st.session_state.answered:
+            get_next_word()
+        elif st.session_state.current_word and not st.session_state.answered:
+            st.warning("현재 문제를 먼저 풀어주세요!")
+        else:
+            get_next_word()
 
 if st.session_state.current_word:
     word_text = st.session_state.current_word['word']
