@@ -3,60 +3,11 @@ from eng_word_list import eng_word_list
 from jpn_word_list import jpn_word_list
 from class_main import Smart_vocab
 
-st.markdown("""
-<style>
-    /* 전체 앱의 기본 폰트 크기 */
-    .main .block-container {
-        font-size: 18px;
-    }
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-    /* 제목 폰트 크기 */
-    h1 {
-        font-size: 3rem !important;
-    }
-
-    /* 서브헤더 폰트 크기 */
-    h2, h3 {
-        font-size: 2.0rem !important;
-    }
-
-    /* 일반 텍스트 폰트 크기 */
-    p, div, span {
-        font-size: 18px !important;
-    }
-
-    /* 버튼 폰트 크기 */
-    .stButton > button {
-        font-size: 18px !important;
-        padding: 0.5rem 1rem !important;
-    }
-
-    /* 라디오 버튼 폰트 크기 */
-    .stRadio > div {
-        font-size: 18px !important;
-    }
-
-    /* 셀렉트박스 폰트 크기 */
-    .stSelectbox > div > div {
-        font-size: 18px !important;
-    }
-
-    /* 사이드바 폰트 크기 */
-    .sidebar .sidebar-content {
-        font-size: 18px !important;
-    }
-
-    /* 경고/정보 메시지 폰트 크기 */
-    .stAlert {
-        font-size: 18px !important;
-    }
-
-    /* 캡션 폰트 크기 */
-    .caption {
-        font-size: 16px !important;
-    }
-</style>
-""", unsafe_allow_html=True)
+load_css('static/style.css')
 
 language_dict = {
     '영어': eng_word_list,
@@ -90,7 +41,7 @@ selected_language = st.sidebar.selectbox(
     options=list(language_dict.keys()),
     index=list(language_dict.keys()).index(default_language)
 )
-# 언어가 변경되었을 때 세션 상태 리셋
+
 if selected_language != st.session_state.selected_language:
     st.session_state.selected_language = selected_language
     st.session_state.trainer = Smart_vocab(language_dict[selected_language])
