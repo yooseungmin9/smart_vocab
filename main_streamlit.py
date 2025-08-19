@@ -151,6 +151,3 @@ if available_count == 0:
         st.session_state.word_correct_count = {}
         st.session_state.completed_words = set()
         st.rerun()
-
-if st.session_state.current_word is None:
-    st.write("[새 단어] 버튼을 눌러 학습을 시작하세요.")
