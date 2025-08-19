@@ -1,4 +1,4 @@
-from word_list import word_list
+from jpn_word_list import word_list
 from class_main import Smart_Vocab
 
 def main():

@@ -1,6 +1,6 @@
 import random
 import json
-from word_list import word_list
+from jpn_word_list import word_list
 
 class Smart_Vocab:
     def __init__(self, word_list):
