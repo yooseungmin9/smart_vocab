@@ -113,7 +113,8 @@ if st.session_state.current_word:
     st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
     choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
 
-    if st.session_state.current_word:
+    col1, col2, col3 = st.columns([1, 1, 2])  # 마지막 컬럼이 더 넓으면 오른쪽 끝까지 쏠림
+    with col3:
         if st.button("다음 단어"):
             if st.session_state.answered:
                 get_next_word()
