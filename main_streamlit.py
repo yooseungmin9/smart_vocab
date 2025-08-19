@@ -56,9 +56,6 @@ with st.container():
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-st.title("📚오늘도 보카 Oneldo Vocab")
-st.write("오늘의 날짜 : 2025년 08월 19일")
-
 st.sidebar.header("🌍언어 선택")
 
 default_language = '영어'
