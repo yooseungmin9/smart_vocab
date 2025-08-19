@@ -16,7 +16,7 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-st.image("logo.jpg", width=300)
+st.image("logo.jpg", width=100)
 st.title("Oneldo Voca")
 st.write("Update: 2025.08.19")
 
