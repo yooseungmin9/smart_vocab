@@ -1,6 +1,8 @@
 import streamlit as st
 from word_list import word_list
 from class_main import Smart_Vocab
+import base64
+from PIL import Image
 
 if "trainer" not in st.session_state:
     st.session_state.trainer = Smart_Vocab(word_list)
@@ -16,8 +18,32 @@ if "word_correct_count" not in st.session_state:
 if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
-st.image("logo.png", width=100)
-st.title("Oneldo Voca")
+
+def get_base64_image(image_path, width=60):
+    """이미지를 리사이징하고 base64로 인코딩"""
+    image = Image.open(image_path)
+    # 비율 유지하면서 리사이징
+    height = int(width * image.height / image.width)
+    resized = image.resize((width, height), resample=Image.Resampling.LANCZOS)
+
+    import io
+    buffer = io.BytesIO()
+    resized.save(buffer, format='PNG', optimize=True, quality=95)
+
+    return base64.b64encode(buffer.getvalue()).decode()
+
+
+# 로고를 base64로 인코딩
+logo_base64 = get_base64_image("logo.jpg", width=60)
+
+# HTML로 이미지와 제목을 나란히 배치
+st.markdown(f"""
+<div style="display: flex; align-items: center; margin-bottom: 20px;">
+    <img src="data:image/png;base64,{logo_base64}" 
+         style="margin-right: 15px; border-radius: 8px;">
+    <h1 style="margin: 0; color: #262730;">Oneldo Voca</h1>
+</div>
+""", unsafe_allow_html=True)
 st.write("Update: 2025.08.19")
 
 MAX_ATTEMPTS = 3
