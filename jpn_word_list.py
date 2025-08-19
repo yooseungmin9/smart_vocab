@@ -9,5 +9,4 @@ jpn_word_list = [
     {"word": "試験", "meanings": ["시험", "테스트", "검사", "평가"], "correct_meaning": "시험", "accent": "시-켄"},
     {"word": "季節", "meanings": ["계절", "절기", "시기", "시즌"], "correct_meaning": "계절", "accent": "키-세츠"},
     {"word": "自転車", "meanings": ["자전거", "탈 것", "바이크", "차"], "correct_meaning": "자전거", "accent": "지-텐-샤"}
-
 ]
