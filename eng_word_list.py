@@ -1,12 +1,12 @@
 eng_word_list = [
-    {"word": "company", "meanings": ["회사", "기업", "직장", "사업체"], "correct_meaning": "회사", "accent": "컴-퍼니"},
-    {"word": "teacher", "meanings": ["선생님", "교사", "강사", "지도자"], "correct_meaning": "선생님", "accent": "티-쳘"},
-    {"word": "family", "meanings": ["가족", "가정", "식구", "친족"], "correct_meaning": "가족", "accent": "패-밀리"},
-    {"word": "time", "meanings": ["시간", "시각", "때", "기간"], "correct_meaning": "시간", "accent": "타-임"},
-    {"word": "movie", "meanings": ["영화", "비디오", "필름", "작품"], "correct_meaning": "영화", "accent": "무-비"},
-    {"word": "problem", "meanings": ["문제", "과제", "곤란", "난제"], "correct_meaning": "문제", "accent": "프라-블럼"},
-    {"word": "hobby", "meanings": ["취미", "관심사", "여가활동", "오락"], "correct_meaning": "취미", "accent": "하-비"},
-    {"word": "exam", "meanings": ["시험", "테스트", "검사", "평가"], "correct_meaning": "시험", "accent": "이그-젬"},
-    {"word": "season", "meanings": ["계절", "시즌", "절기", "시기"], "correct_meaning": "계절", "accent": "시-즌"},
-    {"word": "bicycle", "meanings": ["자전거", "바이크", "이륜차", "탈것"], "correct_meaning": "자전거", "accent": "바이-시컬"}
+    {"word": "comfortable", "meanings": ["편안한", "안락한", "쾌적한", "만족스러운"], "correct_meaning": "편안한", "accent": "컴-퍼터블"},
+    {"word": "decision", "meanings": ["결정", "판단", "선택", "결론"], "correct_meaning": "결정", "accent": "디-시전"},
+    {"word": "restaurant", "meanings": ["식당", "레스토랑", "음식점", "요리점"], "correct_meaning": "식당", "accent": "레스-토랑"},
+    {"word": "interview", "meanings": ["면접", "인터뷰", "회견", "대담"], "correct_meaning": "면접", "accent": "인-터뷰"},
+    {"word": "experience", "meanings": ["경험", "체험", "겪음", "경력"], "correct_meaning": "경험", "accent": "익스-피어리언스"},
+    {"word": "exercise", "meanings": ["운동", "연습", "훈련", "체조"], "correct_meaning": "운동", "accent": "엑-서사이즈"},
+    {"word": "dangerous", "meanings": ["위험한", "해로운", "무서운", "치명적인"], "correct_meaning": "위험한", "accent": "데인-저러스"},
+    {"word": "vacation", "meanings": ["휴가", "방학", "여행", "쉼"], "correct_meaning": "휴가", "accent": "베이-케이션"},
+    {"word": "photograph", "meanings": ["사진", "포토", "촬영", "그림"], "correct_meaning": "사진", "accent": "포-토그래프"},
+    {"word": "vegetable", "meanings": ["채소", "야채", "식물", "농작물"], "correct_meaning": "채소", "accent": "베-지터블"}
 ]
