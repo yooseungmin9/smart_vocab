@@ -82,7 +82,7 @@ def logo_with_title(image_path, title="오늘도 보카", width=80):
         st.title(title)
 
 logo_with_title("logo.svg", "오늘도 보카", width=60) # PNG 파일
-st.write("Update: 2025.08.19")
+st.write("오늘의 날짜 : 2025.08.19")
 
 MAX_ATTEMPTS = 3
 
