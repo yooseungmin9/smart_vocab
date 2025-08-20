@@ -1,12 +1,12 @@
 jpn_word_list = [
-    {"word": "会社", "meanings": ["회사", "직장", "기업", "사업체"], "correct_meaning": "회사", "accent": "카이-샤"},
-    {"word": "先生", "meanings": ["선생님", "교사", "스승", "지도자"], "correct_meaning": "선생님", "accent": "센-세이"},
-    {"word": "家族", "meanings": ["가족", "가정", "식구", "가문"], "correct_meaning": "가족", "accent": "카-조쿠"},
-    {"word": "時間", "meanings": ["시간", "시각", "시점", "기간"], "correct_meaning": "시간", "accent": "지-칸"},
-    {"word": "映画", "meanings": ["영화", "비디오", "영상", "공연"], "correct_meaning": "영화", "accent": "에이-가"},
-    {"word": "問題", "meanings": ["문제", "과제", "문항", "숙제"], "correct_meaning": "문제", "accent": "몬-다이"},
-    {"word": "趣味", "meanings": ["취미", "흥미", "관심사", "재미"], "correct_meaning": "취미", "accent": "슈-미"},
-    {"word": "試験", "meanings": ["시험", "테스트", "검사", "평가"], "correct_meaning": "시험", "accent": "시-켄"},
-    {"word": "季節", "meanings": ["계절", "절기", "시기", "시즌"], "correct_meaning": "계절", "accent": "키-세츠"},
-    {"word": "自転車", "meanings": ["자전거", "탈 것", "바이크", "차"], "correct_meaning": "자전거", "accent": "지-텐-샤"}
+    {"word": "料理", "meanings": ["요리", "음식", "조리", "식사"], "correct_meaning": "요리", "accent": "료-리"},
+    {"word": "買い物", "meanings": ["쇼핑", "장보기", "구매", "물건사기"], "correct_meaning": "쇼핑", "accent": "카이-모노"},
+    {"word": "天気", "meanings": ["날씨", "기후", "하늘", "기상"], "correct_meaning": "날씨", "accent": "텐-키"},
+    {"word": "病気", "meanings": ["병", "질병", "아픔", "감기"], "correct_meaning": "병", "accent": "뵤-키"},
+    {"word": "仕事", "meanings": ["일", "업무", "직업", "근무"], "correct_meaning": "일", "accent": "시-고토"},
+    {"word": "約束", "meanings": ["약속", "예약", "계약", "다짐"], "correct_meaning": "약속", "accent": "야쿠-소쿠"},
+    {"word": "旅行", "meanings": ["여행", "관광", "출장", "나들이"], "correct_meaning": "여행", "accent": "료-코-"},
+    {"word": "電話", "meanings": ["전화", "통화", "연락", "폰"], "correct_meaning": "전화", "accent": "덴-와"},
+    {"word": "宿題", "meanings": ["숙제", "과제", "공부", "문제"], "correct_meaning": "숙제", "accent": "슈쿠-다이"},
+    {"word": "掃除", "meanings": ["청소", "치우기", "정리", "정돈"], "correct_meaning": "청소", "accent": "소-지"}
 ]

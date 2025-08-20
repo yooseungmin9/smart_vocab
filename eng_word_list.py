@@ -1,12 +1,12 @@
-eng_word_list = [
-    {"word": "comfortable", "meanings": ["편안한", "편리한", "적당한", "안전한"], "correct_meaning": "편안한", "accent": "컴-퍼터블"},
-    {"word": "decision", "meanings": ["결정", "선택", "판단", "의견"], "correct_meaning": "결정", "accent": "디-시전"},
-    {"word": "television", "meanings": ["텔레비전", "방송", "프로그램", "화면"], "correct_meaning": "텔레비전", "accent": "텔-레비전"},
-    {"word": "interview", "meanings": ["면접", "회견", "대화", "질문"], "correct_meaning": "면접", "accent": "인-터뷰"},
-    {"word": "experience", "meanings": ["경험", "경력", "기술", "지식"], "correct_meaning": "경험", "accent": "익스-피어리언스"},
-    {"word": "exercise", "meanings": ["운동", "연습", "활동", "훈련"], "correct_meaning": "운동", "accent": "엑-서사이즈"},
-    {"word": "dangerous", "meanings": ["위험한", "무서운", "해로운", "불안한"], "correct_meaning": "위험한", "accent": "데인-저러스"},
-    {"word": "vacation", "meanings": ["휴가", "여행", "쉼", "자유시간"], "correct_meaning": "휴가", "accent": "베이-케이션"},
-    {"word": "photograph", "meanings": ["사진", "이미지", "그림", "장면"], "correct_meaning": "사진", "accent": "포-토그래프"},
-    {"word": "vegetable", "meanings": ["채소", "야채", "식물", "농산물"], "correct_meaning": "채소", "accent": "베-지터블"}
+eng_word_list_upper_intermediate = [
+    {"word": "successful", "meanings": ["성공한", "잘된", "효과적인", "훌륭한"], "correct_meaning": "성공한", "accent": "석-세스풀"},
+    {"word": "recommend", "meanings": ["추천하다", "권하다", "제안하다", "조언하다"], "correct_meaning": "추천하다", "accent": "리-커멘드"},
+    {"word": "advantage", "meanings": ["장점", "이점", "유리함", "혜택"], "correct_meaning": "장점", "accent": "어드-밴티지"},
+    {"word": "commercial", "meanings": ["상업의", "광고", "사업의", "판매용"], "correct_meaning": "상업의", "accent": "커-머셜"},
+    {"word": "professor", "meanings": ["교수", "선생님", "교사", "학자"], "correct_meaning": "교수", "accent": "프러-페서"},
+    {"word": "permission", "meanings": ["허가", "허락", "승인", "동의"], "correct_meaning": "허가", "accent": "퍼-미션"},
+    {"word": "operation", "meanings": ["수술", "운영", "작업", "활동"], "correct_meaning": "수술", "accent": "아퍼-레이션"},
+    {"word": "excellent", "meanings": ["뛰어난", "훌륭한", "완벽한", "최고의"], "correct_meaning": "뛰어난", "accent": "엑-설런트"},
+    {"word": "condition", "meanings": ["상태", "조건", "상황", "환경"], "correct_meaning": "상태", "accent": "컨-디션"},
+    {"word": "technology", "meanings": ["기술", "과학기술", "첨단기술", "테크놀로지"], "correct_meaning": "기술", "accent": "텍-날러지"}
 ]
