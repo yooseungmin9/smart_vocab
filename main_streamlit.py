@@ -75,16 +75,18 @@ def get_next_word():
     else:
         st.warning("모든 단어를 3번씩 맞췄습니다 🎉")
 
-    if st.button("오늘도 학습"):
-        get_next_word()
-    if st.session_state.current_word:
-        word_text = st.session_state.current_word['word']
-        correct_count = st.session_state.word_correct_count.get(word_text, 0)
-        st.subheader(f"Q: {word_text}")
-        if 'accent' in st.session_state.current_word:
-            st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
-            st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
-            choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
+if st.button("오늘도 학습"):
+    get_next_word()
+
+if st.session_state.current_word:
+    word_text = st.session_state.current_word['word']
+    correct_count = st.session_state.word_correct_count.get(word_text, 0)
+    st.subheader(f"Q: {word_text}")
+
+    if 'accent' in st.session_state.current_word:
+        st.caption(f"🔊 발음: {st.session_state.current_word['accent']}")
+        st.caption(f"이 단어 정답 횟수: {correct_count}/{MAX_ATTEMPTS}")
+        choice = st.radio("뜻을 고르세요.", st.session_state.choices, index=None, key=f"answer_{correct_count}_{word_text}")
 
     if st.button("다음 단어"):
         if st.session_state.answered:
