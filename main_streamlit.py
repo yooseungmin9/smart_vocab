@@ -99,7 +99,7 @@ def get_next_word():
         if correct:
             st.session_state.answered = True
             st.success("정답 🎉")
-            st.info(f"' {word_text} '의 뜻은 '{st.session_state.current_word[' correct_meaning ']}'입니다.")
+            st.info(f"'{word_text}'의 뜻은 '{st.session_state.current_word['correct_meaning']}'입니다.")
             st.session_state.word_correct_count[word_text] = correct_count + 1
             if word_text not in st.session_state.completed_words:
                 st.session_state.completed_words.add(word_text)
