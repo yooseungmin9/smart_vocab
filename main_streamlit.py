@@ -58,6 +58,15 @@ current_word_list = language_dict[st.session_state.selected_language]
 
 MAX_ATTEMPTS = 3
 
+def reset():
+    st.session_state.trainer = Smart_vocab(current_word_list)
+    st.session_state.trainer.start_learn()
+    st.session_state.current_word = None
+    st.session_state.choices = None
+    st.session_state.answered = True
+    st.session_state.word_correct_count = {}
+    st.session_state.completed_words = set()
+
 def get_available_words():
     return [
         word for word in current_word_list
@@ -113,22 +122,10 @@ st.info(f"진행 상황: {completed_count}/{total_words} 단어 완료")
 
 if st.button("학습 종료하기"):
     st.write("한번 더 누르면 학습을 종료합니다.")
-    st.session_state.trainer = Smart_vocab(current_word_list)
-    st.session_state.trainer.start_learn()
-    st.session_state.current_word = None
-    st.session_state.choices = None
-    st.session_state.answered = True
-    st.session_state.word_correct_count = {}
-    st.session_state.completed_words = set()
+    reset()
 
 if available_count == 0:
     st.balloons()
     if st.button("🔄 처음부터 다시 시작"):
-        st.session_state.trainer = Smart_vocab(current_word_list)
-        st.session_state.trainer.start_learn()
-        st.session_state.current_word = None
-        st.session_state.choices = None
-        st.session_state.answered = True
-        st.session_state.word_correct_count = {}
-        st.session_state.completed_words = set()
+        reset()
         st.rerun()
