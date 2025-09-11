@@ -1,4 +1,3 @@
-streamlit
-pandas
-numpy
-requests
+* 기타 쿼리 검증
+- 2024년 6월 미국인 관광객수
+http://openapi.tour.go.kr/openapi/service/EdrcntTourismStatsService/getEdrcntTourismStatsList?&_type=json&serviceKey=L5PyqDviKAL0jSdGt5iPksot8IwBbYS7R27iyt6kKB0q6A%2BA2TS6Cn%2FcJ5CCsBWFPB%2FM%2BpgxnZwQiAhp9%2BTQ0A%3D%3D&YM=202406&NAT_CD=275&ED_CD=E

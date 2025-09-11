@@ -48,7 +48,7 @@ if "completed_words" not in st.session_state:
     st.session_state.completed_words = set()
 
 st.title("📚 오늘도 보카 Oneldo Vocab")
-st.write("오늘의 날짜 : 2025년 08월 21일")
+st.write("오늘의 날짜 : 2025년 09월 10일")
 
 st.sidebar.subheader("🌍 언어 선택")
 
